@@ -25,16 +25,52 @@ namespace database
         {
 
             Poco::Data::Session session = database::Database::get().create_session();
-            Statement create_stmt(session);
-            create_stmt << "CREATE TABLE IF NOT EXISTS `User` (`id` INT NOT NULL AUTO_INCREMENT,"
+            Statement create_user(session);
+            create_user << "CREATE TABLE IF NOT EXISTS `User` (`id` INT NOT NULL AUTO_INCREMENT,"
                         << "`first_name` VARCHAR(256) NOT NULL,"
                         << "`last_name` VARCHAR(256) NOT NULL,"
                         << "`login` VARCHAR(256) NOT NULL,"
                         << "`password` VARCHAR(256) NOT NULL,"
                         << "`email` VARCHAR(256) NULL,"
-                        << "`title` VARCHAR(1024) NULL,"
+                        << "`current_trip_id` INT NULL,"
                         << "PRIMARY KEY (`id`),KEY `fn` (`first_name`),KEY `ln` (`last_name`));",
                 now;
+
+         /*       Statement create_trip(session);
+            create_trip << "CREATE TABLE IF NOT EXISTS `Trip` (`id` INT NOT NULL AUTO_INCREMENT,"
+                        << "`name` VARCHAR(256) NOT NULL,"
+                        << "`creation_date` DATE NOT NULL,"
+                        << "`trip_date` DATE NOT NULL,"
+                        << "`host_id` INT NOT NULL,"
+                        << "`route_id` INT NOT NULL,"
+                        << "PRIMARY KEY (`id`)",
+                now;
+
+                Statement create_route(session);
+            create_route << "CREATE TABLE IF NOT EXISTS `Route` (`id` INT NOT NULL AUTO_INCREMENT,"
+                        << "`title` VARCHAR(256) NOT NULL,"
+                        << "`host_id` VARCHAR(256) NOT NULL,"
+                        << "`type` VARCHAR(256) NOT NULL,"
+                        << "`creation_date` DATE NOT NULL,"
+                        << "`start_point` VARCHAR(256) NOT NULL,"
+                        << "`finish_point` VARCHAR(1024) NOT NULL,"
+                        << "PRIMARY KEY (`id`)",
+                now;
+
+                
+                Statement addForeignKey(session);
+                addForeignKey << "ALTER TABLE `User` ADD CONSTRAINT `fk_user_trip` FOREIGN KEY (`current_trip_id`) REFERENCES `Trip` (`id`) ON DELETE CASCADE;",
+                now;
+
+                addForeignKey << "ALTER TABLE `Trip` ADD CONSTRAINT `fk_trip_user` FOREIGN KEY (`host_id`) REFERENCES `User` (`id`) ON DELETE CASCADE;",
+                now;
+                
+                addForeignKey << "ALTER TABLE `Trip` ADD CONSTRAINT `fk_trip_route` FOREIGN KEY (`route_id`) REFERENCES `Route` (`id`) ON DELETE CASCADE;",
+                now;
+
+
+                addForeignKey << "ALTER TABLE `Route` ADD CONSTRAINT `fk_route_user` FOREIGN KEY (`host_id`) REFERENCES `User` (`id`) ON DELETE CASCADE;",
+                now;*/
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
@@ -58,7 +94,7 @@ namespace database
         root->set("first_name", _first_name);
         root->set("last_name", _last_name);
         root->set("email", _email);
-        root->set("title", _title);
+        root->set("current_trip_id", _current_trip_id);
         root->set("login", _login);
         root->set("password", _password);
 
@@ -76,7 +112,7 @@ namespace database
         user.first_name() = object->getValue<std::string>("first_name");
         user.last_name() = object->getValue<std::string>("last_name");
         user.email() = object->getValue<std::string>("email");
-        user.title() = object->getValue<std::string>("title");
+        user.current_trip_id() = object->getValue<long>("current_trip_id");
         user.login() = object->getValue<std::string>("login");
         user.password() = object->getValue<std::string>("password");
 
@@ -119,12 +155,12 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
             User a;
-            select << "SELECT id, first_name, last_name, email, title,login,password FROM User where id=?",
+            select << "SELECT id, first_name, last_name, email, current_trip_id, login, password FROM User where id=?",
                 into(a._id),
                 into(a._first_name),
                 into(a._last_name),
                 into(a._email),
-                into(a._title),
+                into(a._current_trip_id),
                 into(a._login),
                 into(a._password),
                 use(id),
@@ -156,12 +192,12 @@ namespace database
             Statement select(session);
             std::vector<User> result;
             User a;
-            select << "SELECT id, first_name, last_name, email, title, login, password FROM User",
+            select << "SELECT id, first_name, last_name, email, current_trip_id, login, password FROM User",
                 into(a._id),
                 into(a._first_name),
                 into(a._last_name),
                 into(a._email),
-                into(a._title),
+                into(a._current_trip_id),
                 into(a._login),
                 into(a._password),
                 range(0, 1); //  iterate over result set one row at a time
@@ -197,12 +233,12 @@ namespace database
             User a;
             first_name += "%";
             last_name += "%";
-            select << "SELECT id, first_name, last_name, email, title, login, password FROM User where first_name LIKE ? and last_name LIKE ?",
+            select << "SELECT id, first_name, last_name, email, current_trip_id, login, password FROM User where first_name LIKE ? and last_name LIKE ?",
                 into(a._id),
                 into(a._first_name),
                 into(a._last_name),
                 into(a._email),
-                into(a._title),
+                into(a._current_trip_id),
                 into(a._login),
                 into(a._password),
                 use(first_name),
@@ -238,11 +274,11 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement insert(session);
 
-            insert << "INSERT INTO User (first_name,last_name,email,title,login,password) VALUES(?, ?, ?, ?, ?, ?)",
+            insert << "INSERT INTO User (first_name,last_name,email, current_trip_id,login,password) VALUES(?, ?, ?, ?, ?, ?)",
                 use(_first_name),
                 use(_last_name),
                 use(_email),
-                use(_title),
+                use(_current_trip_id),
                 use(_login),
                 use(_password);
 
@@ -312,9 +348,9 @@ namespace database
         return _email;
     }
 
-    const std::string &User::get_title() const
+    long User::get_current_trip_id() const
     {
-        return _title;
+        return _current_trip_id;
     }
 
     long &User::id()
@@ -337,8 +373,8 @@ namespace database
         return _email;
     }
 
-    std::string &User::title()
+    long &User::current_trip_id()
     {
-        return _title;
+        return _current_trip_id;
     }
 }
