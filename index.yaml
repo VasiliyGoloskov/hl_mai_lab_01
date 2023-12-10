@@ -108,10 +108,10 @@ paths:
         required: true
         schema:
           type: string
-      - name: title
+      - name: current_trip_id
         description: Форма обращение к пользователя 
         in: query
-        required: true
+        required: false
         schema:
           type: string
       - name: login
@@ -161,7 +161,7 @@ components:
         - first_name
         - last_name
         - email
-        - title
+        - current_trip_id
         - login
         - password
       properties:
@@ -173,8 +173,8 @@ components:
           type: string
         email:
           type: string
-        title:
-          type: string
+        current_trip_id:
+          type: integer
         login:
           type: string
         password:
