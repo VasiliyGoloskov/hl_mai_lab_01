@@ -33,7 +33,7 @@ namespace database
                         << "`creation_date` DATETIME NOT NULL,"
                         << "`start_point` VARCHAR(256) NOT NULL,"
                         << "`finish_point` VARCHAR(256) NOT NULL,"
-                        << "PRIMARY KEY (`id`)",
+                        << "PRIMARY KEY (`id`))",
                 now;
         }
 
