@@ -32,45 +32,10 @@ namespace database
                         << "`login` VARCHAR(256) NOT NULL,"
                         << "`password` VARCHAR(256) NOT NULL,"
                         << "`email` VARCHAR(256) NULL,"
-                        << "`current_trip_id` INT NULL,"
+                        << "`current_trip_id` INT NULL DEFAULT NULL,"
                         << "PRIMARY KEY (`id`),KEY `fn` (`first_name`),KEY `ln` (`last_name`));",
                 now;
-
-         /*       Statement create_trip(session);
-            create_trip << "CREATE TABLE IF NOT EXISTS `Trip` (`id` INT NOT NULL AUTO_INCREMENT,"
-                        << "`name` VARCHAR(256) NOT NULL,"
-                        << "`creation_date` DATE NOT NULL,"
-                        << "`trip_date` DATE NOT NULL,"
-                        << "`host_id` INT NOT NULL,"
-                        << "`route_id` INT NOT NULL,"
-                        << "PRIMARY KEY (`id`)",
-                now;
-
-                Statement create_route(session);
-            create_route << "CREATE TABLE IF NOT EXISTS `Route` (`id` INT NOT NULL AUTO_INCREMENT,"
-                        << "`title` VARCHAR(256) NOT NULL,"
-                        << "`host_id` VARCHAR(256) NOT NULL,"
-                        << "`type` VARCHAR(256) NOT NULL,"
-                        << "`creation_date` DATE NOT NULL,"
-                        << "`start_point` VARCHAR(256) NOT NULL,"
-                        << "`finish_point` VARCHAR(1024) NOT NULL,"
-                        << "PRIMARY KEY (`id`)",
-                now;
-
                 
-                Statement addForeignKey(session);
-                addForeignKey << "ALTER TABLE `User` ADD CONSTRAINT `fk_user_trip` FOREIGN KEY (`current_trip_id`) REFERENCES `Trip` (`id`) ON DELETE CASCADE;",
-                now;
-
-                addForeignKey << "ALTER TABLE `Trip` ADD CONSTRAINT `fk_trip_user` FOREIGN KEY (`host_id`) REFERENCES `User` (`id`) ON DELETE CASCADE;",
-                now;
-                
-                addForeignKey << "ALTER TABLE `Trip` ADD CONSTRAINT `fk_trip_route` FOREIGN KEY (`route_id`) REFERENCES `Route` (`id`) ON DELETE CASCADE;",
-                now;
-
-
-                addForeignKey << "ALTER TABLE `Route` ADD CONSTRAINT `fk_route_user` FOREIGN KEY (`host_id`) REFERENCES `User` (`id`) ON DELETE CASCADE;",
-                now;*/
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
