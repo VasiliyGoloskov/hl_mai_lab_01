@@ -47,7 +47,7 @@ services:
       mai-db-node-ex01:
         condition: service_healthy
 
-    route_service:
+  route_service:
     build:
       context: route_service
       dockerfile: Dockerfile
