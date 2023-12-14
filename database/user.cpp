@@ -34,7 +34,7 @@ namespace database
                         << "`email` VARCHAR(256) NULL,"
                         << "`current_trip_id` INT NULL DEFAULT NULL,"
                         << "PRIMARY KEY (`id`),KEY `fn` (`first_name`),KEY `ln` (`last_name`));",
-                now;
+                create_user.execute();
                 
         }
 
