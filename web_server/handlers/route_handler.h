@@ -134,8 +134,8 @@ public:
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                     response.setChunkedTransferEncoding(true);
                     response.setContentType("application/json");
-                    std::ostream &ostr = response.send();
-                  //  Poco::JSON::Stringifier::stringify(remove_password(result->toJSON()), ostr);
+                    //std::ostream &ostr = response.send();
+                    //Poco::JSON::Stringifier::stringify(remove_password(result->toJSON()), ostr);
                     return;
                 }
                 else
