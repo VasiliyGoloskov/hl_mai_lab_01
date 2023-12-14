@@ -33,7 +33,15 @@ namespace database
                         << "`password` VARCHAR(256) NOT NULL,"
                         << "`email` VARCHAR(256) NULL,"
                         << "`current_trip_id` INT NULL DEFAULT NULL,"
-                        << "PRIMARY KEY (`id`),KEY `fn` (`first_name`),KEY `ln` (`last_name`));",
+                        << "PRIMARY KEY (`id`),KEY `fn` (`first_name`),KEY `ln` (`last_name`));"
+                        << "CREATE TABLE IF NOT EXISTS `Route` (`id` INT NOT NULL AUTO_INCREMENT,"
+                        << "`host_id` VARCHAR(256) NOT NULL,"
+                        << "`title` VARCHAR(256) NOT NULL,"
+                        << "`type` VARCHAR(256) NOT NULL,"
+                        << "`creation_date` DATETIME NOT NULL,"
+                        << "`start_point` VARCHAR(256) NOT NULL,"
+                        << "`finish_point` VARCHAR(256) NOT NULL,"
+                        << "PRIMARY KEY (`id`));",
                 create_user.execute();
                 
         }
