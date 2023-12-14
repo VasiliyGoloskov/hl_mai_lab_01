@@ -46,7 +46,12 @@ target_link_libraries(${EXAMPLE_BINARY} PRIVATE
 
 
 
-add_executable(${ROUTE_SERVICE} route_main.cpp)
+add_executable(${ROUTE_SERVICE} route_main.cpp
+                                config/config.cpp
+                                database/database.cpp
+                                database/user.cpp                                
+                                database/route.cpp)
+
 target_include_directories(${ROUTE_SERVICE} PRIVATE "${CMAKE_BINARY_DIR}")
 target_compile_options(${ROUTE_SERVICE} PRIVATE -Wall -Wextra -pedantic -Werror )
 set_target_properties(${ROUTE_SERVICE} PROPERTIES LINKER_LANGUAGE CXX)

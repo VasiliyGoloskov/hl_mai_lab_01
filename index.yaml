@@ -145,6 +145,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  
 components:
   schemas:
     user_id:
@@ -179,6 +180,8 @@ components:
           type: string
         password:
           type: string
+    
+     
     Error:
       type: object
       required:

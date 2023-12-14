@@ -1,0 +1,146 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Arch Lab Example API"
+  description: Пример API для первого домашнего задания по курсу Архитектура программных систем
+servers:
+  - url: http://localhost:8081
+    description: Other server
+paths:
+  /route:   
+    post:
+      summary: Добавление нового маршрута
+      parameters:
+      - name: host_id
+        description: Идентификатор создателя маршрута
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: tytle
+        description: Название
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        description: Тип маршрута
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: start_point
+        description: Идентификатор пользователя
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: finish_point
+        description: Идентификатор пользователя
+        in: query
+        required: true
+        schema:
+          type: string
+      
+      responses:
+        '200':
+          description: Идентификатор, добавленного маршрута
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка добавления маршрута
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                
+  /get_routes:
+      get: 
+        summary: Отдает информацию о маршрутах пользователя
+        parameters:
+          - name: host_id
+            description: ID пользователя
+            in: query
+            required: true            
+            schema:
+              type: integer
+        responses:
+          '200':
+            description: Список данных о маршрутах пользователя
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/routes'
+          404:
+            description: Пользователь не найден
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+          500:
+            description: Неожиданная ошибка
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    routes: 
+      description: Список данных о маршрутах.
+      type: array 
+      items:
+        $ref: '#/components/schemas/visit'
+
+    route_id:
+      description: Уникальный идентификатор маршрута
+      type: integer
+
+    visit:
+      description: Информация о маршруте.
+      type: object
+      required:
+        - id
+        - host_id
+        - tytle
+        - type
+        - creation_date
+        - start_point
+        - finish_point
+      properties:
+        id:
+          $ref: '#/components/schemas/route_id'
+        host_id:
+          type: integer
+        tytle:
+          type: string
+        type:
+          type: string
+        creation_date:
+          type: string
+        start_point:
+          type: string
+        finish_point:
+          type: string
+        
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []
