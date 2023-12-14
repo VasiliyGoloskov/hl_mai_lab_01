@@ -5,6 +5,11 @@ project(hl_server C CXX)
 SET (EXAMPLE_BINARY "hl_mai_lab_01")
 SET (ROUTE_SERVICE "route_service")
 
+SET (STD_CXX "c++17")
+SET (REDISCPP_FLAGS "-DREDISCPP_HEADER_ONLY=ON")
+SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -std=${STD_CXX} ${REDISCPP_FLAGS}")
+SET (CMAKE_CXX_FLAGS_RELEASE "-O3 -g0 -std=${STD_CXX} -Wall -DNDEBUG ${REDISCPP_FLAGS}")
+
 find_package(OpenSSL)
 find_package(Threads)
 find_package(ZLIB)

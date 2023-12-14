@@ -202,8 +202,8 @@ public:
 
     HTTPRequestHandler *createRequestHandler([[maybe_unused]] const HTTPServerRequest &request)
     {
-                if (hasSubstrRoute(request.getURI(),"/temperature") ||
-                    hasSubstrRoute(request.getURI(),"/get_temperatures")) {
+                if (hasSubstrRoute(request.getURI(),"/route") ||
+                    hasSubstrRoute(request.getURI(),"/get_routes")) {
                     return new RouteHandler(_format);
             }    
         return new RouteOtherHandler(_format);
