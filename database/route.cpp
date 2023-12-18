@@ -34,7 +34,7 @@ namespace database
                         << "`start_point` VARCHAR(256) NOT NULL,"
                         << "`finish_point` VARCHAR(256) NOT NULL,"
                         << "PRIMARY KEY (`id`));",
-                create_route.execute();
+                now;
                 std::cout << "created:" << std::endl;
         }
 
