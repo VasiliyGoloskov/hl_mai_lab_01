@@ -213,7 +213,7 @@ public:
     int main([[maybe_unused]] const std::vector<std::string> &args)
     {
 
-        ServerSocket svs(Poco::Net::SocketAddress("0.0.0.0", 8081));
+        ServerSocket svs(Poco::Net::SocketAddress("0.0.0.0", 8082));
         HTTPServer srv(new HTTPOtherRequestFactory(DateTimeFormat::SORTABLE_FORMAT), svs, new HTTPServerParams);
         srv.start();
         waitForTerminationRequest();
