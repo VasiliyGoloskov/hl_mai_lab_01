@@ -193,33 +193,6 @@ public:
                     route.type() = form.get("type");
                     route.start_point() = form.get("start_point");
                     route.finish_point() = form.get("finish_point");
-        
-
-                   /*
-
-                    if (!check_user_id(visit.get_user_id(), reason))
-                    {
-                        check_result = false;
-                        message += reason;
-                        message += "<br>";
-                    }
-
-                    if (!check_datetime(visit.datetime(), reason))
-                    {
-                        check_result = false;
-                        message += reason;
-                        message += "<br>";
-                    }
-                    */
-                    /*
-
-                    if (!check_email(user.get_email(), reason))
-                    {
-                        check_result = false;
-                        message += reason;
-                        message += "<br>";
-                    }
-                    */
 
                     if (check_result)
                     {
