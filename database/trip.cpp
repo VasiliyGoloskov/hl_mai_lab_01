@@ -33,7 +33,7 @@ namespace database
                         << "`type` VARCHAR(256) NOT NULL,"
                         << "`trip_date` DATETIME NOT NULL);",
                 now;
-          
+          std::cout << "Trip table initialized successfully." << std::endl;
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)

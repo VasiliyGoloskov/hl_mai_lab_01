@@ -34,7 +34,7 @@ namespace database
                         << "`start_point` VARCHAR(256) NOT NULL,"
                         << "`finish_point` VARCHAR(256) NOT NULL);",
                 now;
-              
+              std::cout << "Route table initialized successfully." << std::endl;
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
