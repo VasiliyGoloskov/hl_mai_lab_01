@@ -173,7 +173,7 @@ public:
                     database::Trip trip;
                  
                     trip.host_id() =  atol(form.get("host_id").c_str());      
-                    time_t now = time(0);
+                    //time_t now = time(0);
                     
                     // В таком формате мы получаем дату. Sat Nov 18 21:34:02 2023
                     //std::string temp_value = ctime(&now);
