@@ -78,7 +78,7 @@ services:
       - DB_PASSWORD=stud
       - DB_DATABASE=archdb
     ports:
-      - 8081:8081
+      - 8082:8082
     networks:
       - arch-network
     depends_on:
