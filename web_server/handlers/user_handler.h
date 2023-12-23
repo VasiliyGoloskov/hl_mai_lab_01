@@ -213,7 +213,7 @@ public:
             }
             else if (request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST)
             {
-                if (form.has("first_name") && form.has("last_name") && form.has("email") && form.has("current_trip_id") && form.has("login") && form.has("password"))
+                if (form.has("first_name") && form.has("last_name") && form.has("email") && form.has("login") && form.has("password"))
                 {
                     database::User user;
                     user.first_name() = form.get("first_name");
