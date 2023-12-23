@@ -1,9 +1,9 @@
 
 #include <optional>
-#include "other_server/http_other_server.h"
+#include "trip_service/http_trip_service.h"
 
 int main(int argc, char*argv[]) 
 {
-    HTTPOtherWebServer app;
+    HTTPTripOtherWebServer app;
     return app.run(argc, argv);
 }

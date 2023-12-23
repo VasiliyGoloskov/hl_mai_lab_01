@@ -4,6 +4,7 @@ project(hl_server C CXX)
 
 SET (EXAMPLE_BINARY "hl_mai_lab_01")
 SET (ROUTE_SERVICE "route_service")
+SET (TRIP_SERVICE "trip_service")
 
 SET (STD_CXX "c++17")
 SET (REDISCPP_FLAGS "-DREDISCPP_HEADER_ONLY=ON")
@@ -32,7 +33,8 @@ add_executable(${EXAMPLE_BINARY} main.cpp
                                  config/config.cpp 
                                  database/database.cpp
                                  database/user.cpp
-                                 database/route.cpp)
+                                 database/route.cpp
+                                 database/trip.cpp)
 
 
 target_include_directories(${EXAMPLE_BINARY} PRIVATE "${CMAKE_BINARY_DIR}")

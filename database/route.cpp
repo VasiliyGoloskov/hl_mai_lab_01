@@ -34,7 +34,7 @@ namespace database
                         << "`start_point` VARCHAR(256) NOT NULL,"
                         << "`finish_point` VARCHAR(256) NOT NULL);",
                 now;
-                std::cout << "created:" << std::endl;
+              
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
@@ -90,7 +90,7 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
             Route a;
-            select << "SELECT id, host_id, tytle, type, creation_date, start_point, finish_point FROM User where host_id=?",
+            select << "SELECT id, host_id, tytle, type, creation_date, start_point, finish_point FROM Route where host_id=?",
                 into(a._id),
                 into(a._host_id),
                 into(a._tytle),

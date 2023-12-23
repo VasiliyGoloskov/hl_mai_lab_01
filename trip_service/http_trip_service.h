@@ -1,5 +1,5 @@
-#ifndef HTTPOTHERWEBSERVER_H
-#define HTTPOTHERWEBSERVER_H
+#ifndef HTTPTRIPSERVICE_H
+#define HTTPTRIPSERVICE_H
 
 #include "Poco/Net/HTTPServer.h"
 #include "Poco/Net/HTTPRequestHandler.h"
@@ -84,12 +84,14 @@ using Poco::Util::ServerApplication;
 
 #include <optional>
 #include "../helper.h"
+#include "../database/trip.h"
+#include "../web_server/handlers/trip_handler.h"
 
-class OtherHandler : public HTTPRequestHandler
+class TripOtherHandler : public HTTPRequestHandler
 {
 
 public:
-    OtherHandler(const std::string &format) : _format(format)
+    TripOtherHandler(const std::string &format) : _format(format)
     {
     }
 
@@ -191,30 +193,34 @@ private:
     std::string _format;
 };
 
-class HTTPOtherRequestFactory : public HTTPRequestHandlerFactory
+class HTTPTripOtherRequestFactory : public HTTPRequestHandlerFactory
 {
 public:
-    HTTPOtherRequestFactory(const std::string &format) : _format(format)
+    HTTPTripOtherRequestFactory(const std::string &format) : _format(format)
     {
     }
 
     HTTPRequestHandler *createRequestHandler([[maybe_unused]] const HTTPServerRequest &request)
     {
-        return new OtherHandler(_format);
+        if (hasSubstrTrip(request.getURI(),"/trip") ||
+                    hasSubstrTrip(request.getURI(),"/get_trips")) {
+                    return new TripHandler(_format);
+                }
+        return new TripOtherHandler(_format);
     }
 
 private:
     std::string _format;
 };
 
-class HTTPOtherWebServer : public Poco::Util::ServerApplication
+class HTTPTripOtherWebServer : public Poco::Util::ServerApplication
 {
 public:
     int main([[maybe_unused]] const std::vector<std::string> &args)
     {
-
+        database::Trip::init();
         ServerSocket svs(Poco::Net::SocketAddress("0.0.0.0", 8082));
-        HTTPServer srv(new HTTPOtherRequestFactory(DateTimeFormat::SORTABLE_FORMAT), svs, new HTTPServerParams);
+        HTTPServer srv(new HTTPTripOtherRequestFactory(DateTimeFormat::SORTABLE_FORMAT), svs, new HTTPServerParams);
         srv.start();
         waitForTerminationRequest();
         srv.stop();

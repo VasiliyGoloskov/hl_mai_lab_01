@@ -5,7 +5,7 @@ info:
   description: Пример API для первого домашнего задания по курсу Архитектура программных систем
 servers:
   - url: http://localhost:8081
-    description: Other server
+    description: Trip service
 paths:
   /route:   
     post:
