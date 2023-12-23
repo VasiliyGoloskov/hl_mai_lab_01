@@ -6,4 +6,4 @@ RUN git clone -b poco-1.11.7-release https://github.com/pocoproject/poco.git && 
 RUN git clone  https://github.com/VasiliyGoloskov/hl_mai_lab_01.git
 RUN sudo ldconfig
 RUN cd hl_mai_lab_01 && mkdir build && cd build && cmake  .. && make
-ENTRYPOINT [ "hl_mai_lab_01/build/hl_mai_lab_01" ]
+ENTRYPOINT [ "hl_mai_lab_01/build/route_service" ]
