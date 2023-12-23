@@ -73,7 +73,7 @@ target_link_libraries(${ROUTE_SERVICE} PRIVATE
                              "mysqlclient"
                              ZLIB::ZLIB)
 
-add_executable(${TRIP_SERVICE} route_main.cpp
+add_executable(${TRIP_SERVICE}  trip_main.cpp
                                 config/config.cpp
                                 database/database.cpp
                                 database/user.cpp                                
