@@ -219,7 +219,7 @@ public:
                     user.first_name() = form.get("first_name");
                     user.last_name() = form.get("last_name");
                     user.email() = form.get("email");
-                    user.current_trip_id() = atol(form.get("current_trip_id").c_str());
+                    //user.current_trip_id() = atol(form.get("current_trip_id").c_str());
                     user.login() = form.get("login");
                     user.password() = form.get("password");
 
