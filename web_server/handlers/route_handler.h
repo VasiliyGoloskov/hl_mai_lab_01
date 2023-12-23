@@ -1,7 +1,7 @@
 #ifndef ROUTEHANDLER_H
 #define ROUTEHANDLER_H
 
-#include "../../database/route.h"
+#include "../../database/trip.h"
 #include "../../helper.h"
 
 #include <iostream>
@@ -124,11 +124,11 @@ public:
         HTMLForm form(request, request.stream());
         try
         {
-            if (form.has("host_id") && (request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET))
+            if (form.has("id") && (request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET))
             {
                 long host_id = atol(form.get("host_id").c_str());
 
-                std::optional<database::Route> result = database::Route::get_routes(host_id);
+                std::optional<database::Trip> result = database::Trip::get_trip(id);
                 if (result)
                 {
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);

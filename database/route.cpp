@@ -26,14 +26,13 @@ namespace database
 
             Poco::Data::Session session = database::Database::get().create_session();
             Statement create_route(session);
-            create_route << "CREATE TABLE IF NOT EXISTS `Route` (`id` INT NOT NULL AUTO_INCREMENT,"
+            create_route << "CREATE TABLE IF NOT EXISTS `Route` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
                         << "`host_id` VARCHAR(256) NOT NULL,"
                         << "`title` VARCHAR(256) NOT NULL,"
                         << "`type` VARCHAR(256) NOT NULL,"
                         << "`creation_date` DATETIME NOT NULL,"
                         << "`start_point` VARCHAR(256) NOT NULL,"
-                        << "`finish_point` VARCHAR(256) NOT NULL,"
-                        << "PRIMARY KEY (`id`));",
+                        << "`finish_point` VARCHAR(256) NOT NULL);",
                 now;
                 std::cout << "created:" << std::endl;
         }
