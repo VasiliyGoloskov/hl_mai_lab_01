@@ -175,14 +175,13 @@ public:
                     trip.host_id() =  atol(form.get("host_id").c_str());      
                     trip.route_id() = atol(form.get("route_id").c_str());
                     trip.name() = form.get("name");
-                    trip.type() = form.get("type");                 
+                    trip.type() = form.get("type");              
                     trip.trip_date() = form.get("trip_date");
                     bool check_result = true;
                     std::string message;
                     std::string reason;
                     
-                    
-
+                   
                     if (check_result)
                     {
                         trip.save_to_mysql();
@@ -212,7 +211,7 @@ public:
                 
                 if (1 == 1)
                     {                        
-                        message += "не стаботало!";
+                        message += "запрос не работает";
                         message += "<br>";
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
                         std::ostream &ostr = response.send();
