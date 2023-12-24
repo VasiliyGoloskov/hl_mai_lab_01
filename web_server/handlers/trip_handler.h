@@ -173,64 +173,15 @@ public:
                     database::Trip trip;
                  
                     trip.host_id() =  atol(form.get("host_id").c_str());      
-                    //time_t now = time(0);
-                    
-                    // В таком формате мы получаем дату. Sat Nov 18 21:34:02 2023
-                    //std::string temp_value = ctime(&now);
-
-                    // Создаем объект структуры tm для хранения времени
-                   // std::tm date = {};
-                    /*
-                    // Парсим дату из строки в структуру tm
-                    std::istringstream ss(temp_value);
-                    ss >> std::get_time(&date, "%a %b %d %H:%M:%S %Y");
-                    
-                    if (ss.fail()) {
-                        std::cout << "Ошибка при парсинге даты" << std::endl;                        
-                    }
-                    */
-                    // Преобразуем дату в нужный формат
-                    //std::ostringstream oss;
-                    //oss << std::put_time(&date, "%Y-%m-%d %H:%M:%S");
-                    
-                    //std::string output_date = oss.str();
-                                        
-                    //trip.trip_date() = output_date;
+                    trip.route_id() = atol(form.get("route_id").c_str());
+                    trip.name() = form.get("name");
+                    trip.type() = form.get("type");                 
                     trip.trip_date() = form.get("trip_date");
                     bool check_result = true;
                     std::string message;
                     std::string reason;
                     
-                    trip.route_id() = atol(form.get("route_id").c_str());
-                    trip.name() = form.get("name");
-                    trip.type() = form.get("type");
-        
-
-                   /*
-
-                    if (!check_user_id(visit.get_user_id(), reason))
-                    {
-                        check_result = false;
-                        message += reason;
-                        message += "<br>";
-                    }
-
-                    if (!check_datetime(visit.datetime(), reason))
-                    {
-                        check_result = false;
-                        message += reason;
-                        message += "<br>";
-                    }
-                    */
-                    /*
-
-                    if (!check_email(user.get_email(), reason))
-                    {
-                        check_result = false;
-                        message += reason;
-                        message += "<br>";
-                    }
-                    */
+                    
 
                     if (check_result)
                     {

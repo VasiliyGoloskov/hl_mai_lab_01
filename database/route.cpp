@@ -127,11 +127,11 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement insert(session);
 
-            insert << "INSERT INTO Route (host_id,tytle,type,start_point,finish_point) VALUES(?, ?, ?, ?, ?)",
+            insert << "INSERT INTO Route (host_id,tytle,type,creation_date,start_point,finish_point) VALUES(?, ?, ?, ?, ?, ?)",
                 use(_host_id),
                 use(_tytle),
                 use(_type);
-                //use(_creation_date),
+                use(_creation_date),
                 use(_start_point),
                 use(_finish_point);
 

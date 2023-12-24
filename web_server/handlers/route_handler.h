@@ -111,13 +111,6 @@ public:
     {
     }
 
- /*   Poco::JSON::Object::Ptr remove_password(Poco::JSON::Object::Ptr src)
-    {
-        if (src->has("password"))
-            src->set("password", "*******");
-        return src;
-    }
-*/
     void handleRequest(HTTPServerRequest &request,
                        HTTPServerResponse &response)
     {
@@ -161,38 +154,39 @@ public:
                     database::Route route;
                  
                     route.host_id() =  atol(form.get("host_id").c_str());      
-                    //time_t now = time(0);
+                    time_t now = time(0);
     
                     // В таком формате мы получаем дату. Sat Nov 18 21:34:02 2023
-                   // std::string temp_value = ctime(&now);
+                   std::string temp_value = ctime(&now);
 
                     // Создаем объект структуры tm для хранения времени
-                   // std::tm date = {};
+                    std::tm date = {};
 
                     // Парсим дату из строки в структуру tm
-                   // std::istringstream ss(temp_value);
-                    //ss >> std::get_time(&date, "%a %b %d %H:%M:%S %Y");
+                    std::istringstream ss(temp_value);
+                    ss >> std::get_time(&date, "%a %b %d %H:%M:%S %Y");
                     
-                    //if (ss.fail()) {
-                    //    std::cout << "Ошибка при парсинге даты" << std::endl;                        
-                    //}
+                    if (ss.fail()) {
+                       std::cout << "Ошибка при парсинге даты" << std::endl;                        
+                    }
                     
                     // Преобразуем дату в нужный формат
-                    //std::ostringstream oss;
-                    //oss << std::put_time(&date, "%Y-%m-%d %H:%M:%S");
+                    std::ostringstream oss;
+                    oss << std::put_time(&date, "%Y-%m-%d %H:%M:%S");
                     
-                    //std::string output_date = oss.str();
+                    std::string output_date = oss.str();
                                         
-                    //route.creation_date() = output_date;
+                    route.creation_date() = output_date;
+                    route.tytle() = form.get("tytle");
+                    route.type() = form.get("type");
+                    route.start_point() = form.get("start_point");
+                    route.finish_point() = form.get("finish_point");
 
                     bool check_result = true;
                     std::string message;
                     std::string reason;
                     
-                    route.tytle() = form.get("tytle");
-                    route.type() = form.get("type");
-                    route.start_point() = form.get("start_point");
-                    route.finish_point() = form.get("finish_point");
+                   
 
                     if (check_result)
                     {
