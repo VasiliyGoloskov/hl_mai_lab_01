@@ -149,13 +149,13 @@ public:
             }
             if (request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST) 
             {
-                if (form.has("host_id") && form.has("tytle") && form.has("type") && form.has("start_point") && form.has("finish_point"))
+                if (form.has("host_id") && form.has("tytle") && form.has("type") && form.has("creation_date") && form.has("start_point") && form.has("finish_point"))
                 {
                     database::Route route;
                  
                     route.host_id() =  atol(form.get("host_id").c_str());      
-                    time_t now = time(0);
-    
+                    //time_t now = time(0);
+    /*
                     // В таком формате мы получаем дату. Sat Nov 18 21:34:02 2023
                    std::string temp_value = ctime(&now);
 
@@ -175,8 +175,8 @@ public:
                     oss << std::put_time(&date, "%Y-%m-%d %H:%M:%S");
                     
                     std::string output_date = oss.str();
-                                        
-                    route.creation_date() = output_date;
+     */                                   
+                    route.creation_date() = form.get("creation_date");
                     route.tytle() = form.get("tytle");
                     route.type() = form.get("type");
                     route.start_point() = form.get("start_point");

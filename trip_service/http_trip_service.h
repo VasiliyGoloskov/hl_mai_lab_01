@@ -200,13 +200,14 @@ public:
     {
     }
 
-    HTTPRequestHandler *createRequestHandler([[maybe_unused]] const HTTPServerRequest &request)
+    HTTPRequestHandler *createRequestHandler([[maybe_unused]] 
+        const HTTPServerRequest &request)
     {
         if (hasSubstrTrip(request.getURI(),"/trip") ||
-                    hasSubstrTrip(request.getURI(),"/get_trips")) {
+        hasSubstrTrip(request.getURI(),"/get_trips")) 
                     return new TripHandler(_format);
-                }
-        return new TripOtherHandler(_format);
+                
+        return 0;
     }
 
 private:

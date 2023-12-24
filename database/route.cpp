@@ -30,7 +30,7 @@ namespace database
                         << "`host_id` VARCHAR(256) NOT NULL,"
                         << "`title` VARCHAR(256) NOT NULL,"
                         << "`type` VARCHAR(256) NOT NULL,"
-                        << "`creation_date` DATETIME NOT NULL,"
+                        << "`creation_date` VARCHAR(256) NOT NULL,"
                         << "`start_point` VARCHAR(256) NOT NULL,"
                         << "`finish_point` VARCHAR(256) NOT NULL);",
                 now;

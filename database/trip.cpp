@@ -31,7 +31,7 @@ namespace database
                         << "`route_id` VARCHAR(256) NOT NULL,"
                         << "`name` VARCHAR(256) NOT NULL,"
                         << "`type` VARCHAR(256) NOT NULL,"
-                        << "`trip_date` DATETIME NOT NULL);",
+                        << "`trip_date` VARCHAR(256) NOT NULL);",
                 now;
           std::cout << "Trip table initialized successfully." << std::endl;
         }
