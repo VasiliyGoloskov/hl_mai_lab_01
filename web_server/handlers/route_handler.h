@@ -157,7 +157,7 @@ public:
                     std::cout << route.host_id() << "+" << std::endl;     
                           
                     route.creation_date() = form.get("creation_date");
-                    std::cout << route.creation_date() << "+" << std::endl;
+                    std::cout << route.creation_date() << "+-" << std::endl;
                     route.title() = form.get("title");
                     std::cout << route.title() << "+" << std::endl; 
                     route.type() = form.get("type");
