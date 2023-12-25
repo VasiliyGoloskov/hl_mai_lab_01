@@ -89,21 +89,21 @@ namespace database
         {
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
-            Route a;
+            Route r;
             select << "SELECT id, host_id, title, type, creation_date, start_point, finish_point FROM Route where host_id=?",
-                into(a._id),
-                into(a._host_id),
-                into(a._title),
-                into(a._type),
-                into(a._creation_date),
-                into(a._start_point),
-                into(a._finish_point),
+                into(r._id),
+                into(r._host_id),
+                into(r._title),
+                into(r._type),
+                into(r._creation_date),
+                into(r._start_point),
+                into(r._finish_point),
                 use(host_id),
                 range(0, 1); //  iterate over result set one row at a time
 
             select.execute();
             Poco::Data::RecordSet rs(select);
-            if (rs.moveFirst()) return a;
+            if (rs.moveFirst()) return r;
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)

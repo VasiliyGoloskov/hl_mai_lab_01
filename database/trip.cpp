@@ -86,20 +86,20 @@ namespace database
         {
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
-            Trip a;
+            Trip t;
             select << "SELECT * FROM Trip where id=?",
-                into(a._id),
-                into(a._host_id),
-                into(a._route_id),
-                into(a._name),
-                into(a._type),
-                into(a._trip_date),
+                into(t._id),
+                into(t._host_id),
+                into(t._route_id),
+                into(t._name),
+                into(t._type),
+                into(t._trip_date),
                 use(id),
                 range(0, 1); //  iterate over result set one row at a time
 
             select.execute();
             Poco::Data::RecordSet rs(select);
-            if (rs.moveFirst()) return a;
+            if (rs.moveFirst()) return t;
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
