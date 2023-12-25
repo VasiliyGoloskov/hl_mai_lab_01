@@ -149,7 +149,7 @@ public:
             }
             if (request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST) 
             {
-                if (form.has("host_id") && form.has("tytle") && form.has("type") && form.has("creation_date") && form.has("start_point") && form.has("finish_point"))
+                if (form.has("host_id") && form.has("title") && form.has("type") && form.has("creation_date") && form.has("start_point") && form.has("finish_point"))
                 {
                     database::Route route;
                  
@@ -177,7 +177,7 @@ public:
                     std::string output_date = oss.str();
      */                                   
                     route.creation_date() = form.get("creation_date");
-                    route.tytle() = form.get("tytle");
+                    route.title() = form.get("title");
                     route.type() = form.get("type");
                     route.start_point() = form.get("start_point");
                     route.finish_point() = form.get("finish_point");

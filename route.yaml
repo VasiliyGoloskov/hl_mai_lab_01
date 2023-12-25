@@ -17,13 +17,19 @@ paths:
         required: true
         schema:
           type: integer
-      - name: tytle
+      - name: title
         description: Название
         in: query
         required: true
         schema:
           type: string
       - name: type
+        description: Тип маршрута
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: creation_date
         description: Тип маршрута
         in: query
         required: true
@@ -108,7 +114,7 @@ components:
       required:
         - id
         - host_id
-        - tytle
+        - title
         - type
         - creation_date
         - start_point
@@ -118,7 +124,7 @@ components:
           $ref: '#/components/schemas/route_id'
         host_id:
           type: integer
-        tytle:
+        title:
           type: string
         type:
           type: string

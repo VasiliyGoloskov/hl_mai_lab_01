@@ -12,7 +12,7 @@ namespace database
         private:
             long _id;
             long _host_id;
-            std::string _tytle;
+            std::string _title;
             std::string _type;
             std::string _creation_date;
             std::string _start_point;
@@ -25,7 +25,7 @@ namespace database
 
             long get_id() const;
             long get_host_id() const;
-            const std::string &get_tytle() const;
+            const std::string &get_title() const;
             const std::string &get_type() const;
             const std::string &get_creation_date() const;
             const std::string &get_start_point() const;
@@ -33,7 +33,7 @@ namespace database
 
             long &id();
             long &host_id();
-            std::string &tytle();
+            std::string &title();
             std::string &type();
             std::string &creation_date();
             std::string &start_point();

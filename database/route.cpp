@@ -56,7 +56,7 @@ namespace database
 
         root->set("id", _id);
         root->set("host_id", _host_id);
-        root->set("tytle", _tytle);
+        root->set("title", _title);
         root->set("type", _type);
         root->set("creation_date", _creation_date);
         root->set("start_point", _start_point);
@@ -74,7 +74,7 @@ namespace database
 
         route.id() = object->getValue<long>("id");
         route.host_id() = object->getValue<long>("host_id");
-        route.tytle() = object->getValue<std::string>("tytle");
+        route.title() = object->getValue<std::string>("title");
         route.type() = object->getValue<std::string>("type");
         route.creation_date() = object->getValue<std::string>("creation_date");
         route.start_point() = object->getValue<std::string>("start_point");
@@ -90,10 +90,10 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
             Route a;
-            select << "SELECT id, host_id, tytle, type, creation_date, start_point, finish_point FROM Route where host_id=?",
+            select << "SELECT id, host_id, title, type, creation_date, start_point, finish_point FROM Route where host_id=?",
                 into(a._id),
                 into(a._host_id),
-                into(a._tytle),
+                into(a._title),
                 into(a._type),
                 into(a._creation_date),
                 into(a._start_point),
@@ -127,9 +127,9 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement insert(session);
 
-            insert << "INSERT INTO Route (host_id,tytle,type,creation_date,start_point,finish_point) VALUES(?, ?, ?, ?, ?, ?)",
+            insert << "INSERT INTO Route (host_id,title,type,creation_date,start_point,finish_point) VALUES(?, ?, ?, ?, ?, ?)",
                 use(_host_id),
-                use(_tytle),
+                use(_title),
                 use(_type);
                 use(_creation_date),
                 use(_start_point),
@@ -171,9 +171,9 @@ namespace database
         return _host_id;
     }
 
-    const std::string &Route::get_tytle() const
+    const std::string &Route::get_title() const
     {
-        return _tytle;
+        return _title;
     }
     const std::string &Route::get_type() const
     {
@@ -204,9 +204,9 @@ namespace database
         return _host_id;
     }
 
-    std::string &Route::tytle()
+    std::string &Route::title()
     {
-        return _tytle;
+        return _title;
     }
     std::string &Route::type() 
     {

@@ -22,3 +22,6 @@ create index fn_ln using btree on Author(first_name,last_name);
 drop index ln_fn on Author;
 create index ln_fn using btree on Author(last_name,first_name);
 explain format=json select * from Author where first_name='Elle%' and last_name='A%';
+INSERT INTO Route (`host_id`,`title`,`type`,`creation_date`,`start_point`,`finish_point`) VALUES(1, 'tytle', 'title', 'tytle', 'tytle', 'tytle')
+
+INSERT INTO Trip (host_id,route_id,name,type,trip_date) VALUES(1, 1, 'title', 'tytle', 'tytle')
