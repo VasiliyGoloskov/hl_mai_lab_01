@@ -152,8 +152,9 @@ public:
                 if (form.has("host_id") && form.has("title") && form.has("type") && form.has("creation_date") && form.has("start_point") && form.has("finish_point"))
                 {
                     database::Route route;
-                 
-                    route.host_id() =  atol(form.get("host_id").c_str());      
+                    std::cout << "route+" << std::endl;
+                    route.host_id() =  atol(form.get("host_id").c_str()); 
+                    std::cout << "+" << std::endl;     
                     //time_t now = time(0);
     /*
                     // В таком формате мы получаем дату. Sat Nov 18 21:34:02 2023
@@ -177,20 +178,27 @@ public:
                     std::string output_date = oss.str();
      */                                   
                     route.creation_date() = form.get("creation_date");
+                    std::cout << "+" << std::endl;
                     route.title() = form.get("title");
+                    std::cout << "+" << std::endl;
                     route.type() = form.get("type");
+                    std::cout << "+" << std::endl;
                     route.start_point() = form.get("start_point");
+                    std::cout << "+" << std::endl;
                     route.finish_point() = form.get("finish_point");
+                    std::cout << "+" << std::endl;
 
-                    bool check_result = true;
+
+            
                     std::string message;
                     std::string reason;
                     
                    
 
-                    if (check_result)
-                    {
+                
+                
                         route.save_to_mysql();
+                        std::cout << "save+" << std::endl;
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                         response.setChunkedTransferEncoding(true);
                         response.setContentType("application/json");
@@ -198,15 +206,15 @@ public:
                         ostr << route.get_id();
                         return;
                         
-                    }
-                    else
+                    
+                 /*   else
                     {
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
                         std::ostream &ostr = response.send();
                         ostr << message;
                         response.send();
                         return;
-                    }
+                    }*/
                 }
             }
         }
@@ -217,7 +225,7 @@ public:
                 
                 if (1 == 1)
                     {                        
-                        message += "не стаботало!";
+                        message += "не работает";
                         message += "<br>";
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
                         std::ostream &ostr = response.send();
