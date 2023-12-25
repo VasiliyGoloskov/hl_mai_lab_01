@@ -161,11 +161,11 @@ public:
                     route.title() = form.get("title");
                     std::cout << route.title() << "+" << std::endl; 
                     route.type() = form.get("type");
-                    std::cout << route.title() << "+" << std::endl; 
+                    std::cout << route.type() << "+" << std::endl; 
                     route.start_point() = form.get("start_point");
-                    std::cout << route.title() << "+" << std::endl; 
+                    std::cout << route.start_point() << "+" << std::endl; 
                     route.finish_point() = form.get("finish_point");
-                    std::cout << route.title() << "+" << std::endl; 
+                    std::cout << route.start_point() << "+" << std::endl; 
 
                     
                    
