@@ -154,18 +154,18 @@ public:
                     database::Route route;
                     std::cout << "route+" << std::endl;
                     route.host_id() =  atol(form.get("host_id").c_str()); 
-                    std::cout << "+" << std::endl;     
+                    std::cout << route.host_id() << "+" << std::endl;     
                           
                     route.creation_date() = form.get("creation_date");
                     std::cout << route.creation_date() << "+" << std::endl;
                     route.title() = form.get("title");
-                    std::cout << "+" << std::endl;
+                    std::cout << route.title() << "+" << std::endl; 
                     route.type() = form.get("type");
-                    std::cout << "+" << std::endl;
+                    std::cout << route.title() << "+" << std::endl; 
                     route.start_point() = form.get("start_point");
-                    std::cout << "+" << std::endl;
+                    std::cout << route.title() << "+" << std::endl; 
                     route.finish_point() = form.get("finish_point");
-                    std::cout << "+" << std::endl;
+                    std::cout << route.title() << "+" << std::endl; 
 
                     
                    

@@ -173,15 +173,15 @@ public:
                     database::Trip trip;
                     std::cout << "trip+" << std::endl;
                     trip.host_id() =  atol(form.get("host_id").c_str());
-                    std::cout << "+" << std::endl;      
+                    std::cout << trip.host_id() << "+" << std::endl;      
                     trip.route_id() = atol(form.get("route_id").c_str());
-                    std::cout << "+" << std::endl;
+                    std::cout << trip.route_id() << "+" << std::endl;
                     trip.name() = form.get("name");
-                    std::cout << "+" << std::endl;
+                    std::cout << trip.name() << "+" << std::endl;
                     trip.type() = form.get("type");
-                    std::cout << "+" << std::endl;              
+                    std::cout << trip.type() << "+" << std::endl;              
                     trip.trip_date() = form.get("trip_date");
-                    std::cout << "+" << std::endl;
+                    std::cout << trip.trip_date() << "+" << std::endl;
                    // bool check_result = true;
                     
                    

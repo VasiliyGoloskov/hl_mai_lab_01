@@ -237,6 +237,7 @@ namespace database
         try
         {
             Poco::Data::Session session = database::Database::get().create_session();
+            std::cout << "session+" << std::endl;
             Poco::Data::Statement insert(session);
 
             insert << "INSERT INTO User (first_name,last_name,email,login,password) VALUES( ?, ?, ?, ?, ?)",
