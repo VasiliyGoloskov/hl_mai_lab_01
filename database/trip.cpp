@@ -121,7 +121,9 @@ namespace database
         try
         {
             Poco::Data::Session session = database::Database::get().create_session();
+            std::cout << "session+" << std::endl;
             Poco::Data::Statement insert(session);
+            std::cout << "insert_session+" << std::endl;
 
             insert << "INSERT INTO Trip (host_id,route_id,name,type,trip_date) VALUES(?, ?, ?, ?, ?)",
                 use(_host_id),

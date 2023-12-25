@@ -157,7 +157,7 @@ public:
                     std::cout << "+" << std::endl;     
                           
                     route.creation_date() = form.get("creation_date");
-                    std::cout << "+" << std::endl;
+                    std::cout << route.creation_date() << "+" << std::endl;
                     route.title() = form.get("title");
                     std::cout << "+" << std::endl;
                     route.type() = form.get("type");

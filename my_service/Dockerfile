@@ -3,8 +3,8 @@ ENV TZ=Europe/Moscow
 RUN apt-get clean && apt-get update -y 
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata git sudo build-essential autoconf libtool libssl-dev zlib1g-dev librdkafka-dev pkg-config cmake gcc git g++ mysql-client libmysqlclient-dev libboost-all-dev libssl-dev && apt-get clean
 RUN git clone -b poco-1.11.7-release https://github.com/pocoproject/poco.git && cd poco && mkdir cmake-build && cd cmake-build && cmake .. && make && sudo make install && cd .. && cd ..
-ARG CACHEBUST2=1
-RUN git clone https://github.com/VasiliyGoloskov/hl_mai_lab_01.git && echo $CACHEBUST2
-RUN sudo ldconfig && echo $CACHEBUST2
-RUN cd hl_mai_lab_01 && mkdir build && cd build && cmake  .. && make && echo $CACHEBUST2
-ENTRYPOINT [ "hl_mai_lab_01/build/hl_mai_lab_01" ] && echo $CACHEBUST2
+ARG CACHEBUST3=1
+RUN git clone https://github.com/VasiliyGoloskov/hl_mai_lab_01.git && echo $CACHEBUST3
+RUN sudo ldconfig && echo $CACHEBUST3
+RUN cd hl_mai_lab_01 && mkdir build && cd build && cmake  .. && make && echo $CACHEBUST3
+ENTRYPOINT [ "hl_mai_lab_01/build/hl_mai_lab_01" ] && echo $CACHEBUST3
