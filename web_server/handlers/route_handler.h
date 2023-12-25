@@ -155,28 +155,7 @@ public:
                     std::cout << "route+" << std::endl;
                     route.host_id() =  atol(form.get("host_id").c_str()); 
                     std::cout << "+" << std::endl;     
-                    //time_t now = time(0);
-    /*
-                    // В таком формате мы получаем дату. Sat Nov 18 21:34:02 2023
-                   std::string temp_value = ctime(&now);
-
-                    // Создаем объект структуры tm для хранения времени
-                    std::tm date = {};
-
-                    // Парсим дату из строки в структуру tm
-                    std::istringstream ss(temp_value);
-                    ss >> std::get_time(&date, "%a %b %d %H:%M:%S %Y");
-                    
-                    if (ss.fail()) {
-                       std::cout << "Ошибка при парсинге даты" << std::endl;                        
-                    }
-                    
-                    // Преобразуем дату в нужный формат
-                    std::ostringstream oss;
-                    oss << std::put_time(&date, "%Y-%m-%d %H:%M:%S");
-                    
-                    std::string output_date = oss.str();
-     */                                   
+                          
                     route.creation_date() = form.get("creation_date");
                     std::cout << "+" << std::endl;
                     route.title() = form.get("title");
@@ -188,10 +167,6 @@ public:
                     route.finish_point() = form.get("finish_point");
                     std::cout << "+" << std::endl;
 
-
-            
-                    std::string message;
-                    std::string reason;
                     
                    
 

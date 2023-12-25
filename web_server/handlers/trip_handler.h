@@ -171,20 +171,24 @@ public:
                 if (form.has("host_id") && form.has("route_id") && form.has("name") && form.has("type") && form.has("trip_date"))
                 {
                     database::Trip trip;
-                 
-                    trip.host_id() =  atol(form.get("host_id").c_str());      
+                    std::cout << "trip+" << std::endl;
+                    trip.host_id() =  atol(form.get("host_id").c_str());
+                    std::cout << "+" << std::endl;      
                     trip.route_id() = atol(form.get("route_id").c_str());
+                    std::cout << "+" << std::endl;
                     trip.name() = form.get("name");
-                    trip.type() = form.get("type");              
+                    std::cout << "+" << std::endl;
+                    trip.type() = form.get("type");
+                    std::cout << "+" << std::endl;              
                     trip.trip_date() = form.get("trip_date");
-                    bool check_result = true;
-                    std::string message;
-                    std::string reason;
+                    std::cout << "+" << std::endl;
+                   // bool check_result = true;
                     
                    
-                    if (check_result)
-                    {
+                   // if (check_result)
+                    //{
                         trip.save_to_mysql();
+                        std::cout << "save+" << std::endl;
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                         response.setChunkedTransferEncoding(true);
                         response.setContentType("application/json");
@@ -192,8 +196,8 @@ public:
                         ostr << trip.get_id();
                         return;
                         
-                    }
-                    else
+                    //}
+                    /*else
                     {
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
                         std::ostream &ostr = response.send();
@@ -201,6 +205,7 @@ public:
                         response.send();
                         return;
                     }
+                    */
                 }
             }
         }

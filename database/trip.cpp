@@ -131,7 +131,7 @@ namespace database
                 use(_trip_date);
 
             insert.execute();
-
+            std::cout << "insert+" << std::endl;
             Poco::Data::Statement select(session);
             select << "SELECT LAST_INSERT_ID()",
                 into(_id),
