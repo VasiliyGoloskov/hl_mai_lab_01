@@ -123,13 +123,6 @@ public:
     {
     }
 
- /*   Poco::JSON::Object::Ptr remove_password(Poco::JSON::Object::Ptr src)
-    {
-        if (src->has("password"))
-            src->set("password", "*******");
-        return src;
-    }
-*/
  void handleRequest(HTTPServerRequest &request,
                        HTTPServerResponse &response)
     {

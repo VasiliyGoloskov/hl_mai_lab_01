@@ -166,16 +166,6 @@ public:
                         std::ostream &ostr = response.send();
                         ostr << route.get_id();
                         return;
-                        
-                    
-                 /*   else
-                    {
-                        response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
-                        std::ostream &ostr = response.send();
-                        ostr << message;
-                        response.send();
-                        return;
-                    }*/
                 }
             }
         }
@@ -186,7 +176,7 @@ public:
                 
                 if (1 == 1)
                     {                        
-                        message += "не работает";
+                        message += "запрос не работает";
                         message += "<br>";
                         response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
                         std::ostream &ostr = response.send();
