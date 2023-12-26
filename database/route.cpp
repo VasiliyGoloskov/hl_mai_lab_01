@@ -27,7 +27,7 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Statement create_route(session);
             create_route << "CREATE TABLE IF NOT EXISTS `Route` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
-                        << "`host_id` VARCHAR(256) NOT NULL,"
+                        << "`host_id` INT NOT NULL,"
                         << "`title` VARCHAR(256) NOT NULL,"
                         << "`type` VARCHAR(256) NOT NULL,"
                         << "`creation_date` VARCHAR(256) NOT NULL,"
@@ -83,13 +83,14 @@ namespace database
         return route;
     }
 
-    std::optional<Route> Route::get_routes(long host_id)
+    std::vector<Route> Route::get_routes(long host_id)
     {
         try
         {
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
             Route r;
+            std::vector<Route> result;
             select << "SELECT id, host_id, title, type, creation_date, start_point, finish_point FROM Route where host_id=?",
                 into(r._id),
                 into(r._host_id),
@@ -101,9 +102,12 @@ namespace database
                 use(host_id),
                 range(0, 1); //  iterate over result set one row at a time
 
-            select.execute();
-            Poco::Data::RecordSet rs(select);
-            if (rs.moveFirst()) return r;
+              while (!select.done())
+            {
+                if (select.execute())
+                    result.push_back(r);
+            }
+            return result;
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
@@ -130,7 +134,7 @@ namespace database
             insert << "INSERT INTO Route (host_id,title,type,creation_date,start_point,finish_point) VALUES(?, ?, ?, ?, ?, ?)",
                 use(_host_id),
                 use(_title),
-                use(_type);
+                use(_type),
                 use(_creation_date),
                 use(_start_point),
                 use(_finish_point);

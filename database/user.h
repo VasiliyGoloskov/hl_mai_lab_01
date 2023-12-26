@@ -43,7 +43,9 @@ namespace database
             static std::optional<long> auth(std::string &login, std::string &password);
             static std::vector<User> read_all();
             static std::vector<User> search(std::string first_name,std::string last_name);
+            static std::optional<User> login_search(std::string login);
             void save_to_mysql();
+            void update_current_trip_id();
 
             Poco::JSON::Object::Ptr toJSON() const;
 

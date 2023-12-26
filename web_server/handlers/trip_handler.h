@@ -136,18 +136,18 @@ public:
         HTMLForm form(request, request.stream());
         try
         {
-            if (form.has("host_id") && (request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET))
+            if (form.has("id") && (request.getMethod() == Poco::Net::HTTPRequest::HTTP_GET))
             {
-                long host_id = atol(form.get("host_id").c_str());
+                long id = atol(form.get("id").c_str());
 
-                std::optional<database::Trip> result = database::Trip::get_trip(host_id);
+                std::optional<database::Trip> result = database::Trip::get_trip(id);
                 if (result)
                 {
                     response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
                     response.setChunkedTransferEncoding(true);
                     response.setContentType("application/json");
-                    //std::ostream &ostr = response.send();
-                    //Poco::JSON::Stringifier::stringify(remove_password(result->toJSON()), ostr);
+                    std::ostream &ostr = response.send();
+                    Poco::JSON::Stringifier::stringify(result->toJSON(), ostr);
                     return;
                 }
                 else
@@ -166,46 +166,40 @@ public:
                     return;
                 }
             }
+             else if (hasSubstrTrip(request.getURI(), "/get_all_trips"))
+            {   
+                auto results = database::Trip::get_all_trips();
+                Poco::JSON::Array arr;
+                for (auto s : results)
+                    arr.add(s.toJSON());
+                response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                response.setChunkedTransferEncoding(true);
+                response.setContentType("application/json");
+                std::ostream &ostr = response.send();
+                Poco::JSON::Stringifier::stringify(arr, ostr);
+
+                return;
+                
+            }
             if (request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST) 
             {
                 if (form.has("host_id") && form.has("route_id") && form.has("name") && form.has("type") && form.has("trip_date"))
                 {
                     database::Trip trip;
-                    std::cout << "trip+" << std::endl;
-                    trip.host_id() =  atol(form.get("host_id").c_str());
-                    std::cout << trip.host_id() << "+" << std::endl;      
+                    trip.host_id() =  atol(form.get("host_id").c_str());     
                     trip.route_id() = atol(form.get("route_id").c_str());
-                    std::cout << trip.route_id() << "+" << std::endl;
                     trip.name() = form.get("name");
-                    std::cout << trip.name() << "+" << std::endl;
-                    trip.type() = form.get("type");
-                    std::cout << trip.type() << "+" << std::endl;              
+                    trip.type() = form.get("type");             
                     trip.trip_date() = form.get("trip_date");
-                    std::cout << trip.trip_date() << "+" << std::endl;
-                   // bool check_result = true;
-                    
-                   
-                   // if (check_result)
-                    //{
-                        trip.save_to_mysql();
-                        std::cout << "save+" << std::endl;
-                        response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-                        response.setChunkedTransferEncoding(true);
-                        response.setContentType("application/json");
-                        std::ostream &ostr = response.send();
-                        ostr << trip.get_id();
-                        return;
-                        
-                    //}
-                    /*else
-                    {
-                        response.setStatus(Poco::Net::HTTPResponse::HTTP_NOT_FOUND);
-                        std::ostream &ostr = response.send();
-                        ostr << message;
-                        response.send();
-                        return;
-                    }
-                    */
+                
+                    trip.save_to_mysql();
+                    std::cout << "save+" << std::endl;
+                    response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                    response.setChunkedTransferEncoding(true);
+                    response.setContentType("application/json");
+                    std::ostream &ostr = response.send();
+                    ostr << trip.get_id();
+                    return;
                 }
             }
         }

@@ -149,6 +149,41 @@ namespace database
         return {};
     }
 
+    std::optional<User> User::login_search(std::string login)
+    {
+        try
+        {
+            Poco::Data::Session session = database::Database::get().create_session();
+            Poco::Data::Statement select(session);
+            User a;
+            select << "SELECT id, first_name, last_name, email, current_trip_id, login FROM User where login=?",
+                into(a._id),
+                into(a._first_name),
+                into(a._last_name),
+                into(a._email),
+                into(a._current_trip_id),
+                into(a._login),
+                use(login),
+                range(0, 1); //  iterate over result set one row at a time
+            select.execute();
+            Poco::Data::RecordSet rs(select);
+            if (rs.moveFirst()) return a;
+        }
+
+        catch (Poco::Data::MySQL::ConnectionException &e)
+        {
+            std::cout << "--" << std::endl;
+            std::cout << "connection:" << e.what() << std::endl;
+        }
+        catch (Poco::Data::MySQL::StatementException &e)
+        {
+
+            std::cout << "statement:" << e.what() << std::endl;
+            
+        }
+        return {};
+    }
+
     std::vector<User> User::read_all()
     {
         try
@@ -273,6 +308,34 @@ namespace database
             throw;
         }
     }
+
+    void User::update_current_trip_id()
+{
+    try
+    {
+        Poco::Data::Session session = database::Database::get().create_session();
+        Poco::Data::Statement update(session);
+
+        update << "UPDATE User SET current_trip_id = ? WHERE id = ?",
+            use(_current_trip_id),
+            use(_id);
+
+        update.execute();
+
+        std::cout << "Updated current_trip_id for user with id " << _id << std::endl;
+    }
+    catch (Poco::Data::MySQL::ConnectionException &e)
+    {
+        std::cout << "Connection error: " << e.what() << std::endl;
+        throw;
+    }
+    catch (Poco::Data::MySQL::StatementException &e)
+    {
+        std::cout << "Statement error: " << e.what() << std::endl;
+        throw;
+    }
+}
+
 
     const std::string &User::get_login() const
     {

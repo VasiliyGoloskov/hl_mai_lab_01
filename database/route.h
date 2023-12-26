@@ -40,7 +40,7 @@ namespace database
             std::string &finish_point();
 
             static void init();
-            static std::optional<Route> get_routes(long host_id);
+            static std::vector<Route> get_routes(long host_id);
             void save_to_mysql();
 
             Poco::JSON::Object::Ptr toJSON() const;

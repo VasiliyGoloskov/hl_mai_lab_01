@@ -42,6 +42,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /login_search:
+    get:
+      summary: Поиск пользователей по логину
+      parameters:
+      - name: login
+        description: Имя пользователя
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The users for the provided login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        404:
+          description: No user found for the provided login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /auth:
     get:
       summary: Проверка аутентификации
@@ -103,29 +132,57 @@ paths:
         schema:
           type: string
       - name: email
-        description: email пользователя
+        description: Email пользователя
         in: query
         required: true
         schema:
           type: string
-      #- name: current_trip_id
-       # description: Форма обращение к пользователя 
-       # in: query
-       # required: false
-        #schema:
-         # type: string
       - name: login
-        description: login пользователя
+        description: Login пользователя
         in: query
         required: true
         schema:
           type: string
       - name: password
-        description: пароль пользователя
+        description: Пароль пользователя
         in: query
         required: true
         schema:
           type: string
+      responses:
+        '200':
+          description: Идентификатор, добавленного пользователя
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка добавления пользователя
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Подключение пользователя к поездке
+      parameters:
+      - name: id
+        description: Идентификатор пользователя
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: current_trip_id
+        description: Идентификатор поездки
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: Идентификатор, добавленного пользователя

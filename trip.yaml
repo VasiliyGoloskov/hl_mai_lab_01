@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   version: "1.0.0"
-  title: "Arch Lab Example API"
+  title: "Trip API"
   description: Пример API для первого домашнего задания по курсу Архитектура программных систем
 servers:
   - url: http://localhost:8082
@@ -9,7 +9,7 @@ servers:
 paths:
   /trip:   
     post:
-      summary: Добавление нового маршрута
+      summary: Создание поездки
       parameters:
       - name: host_id
         description: Идентификатор создателя поездки
@@ -61,16 +61,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'                
-  /get_trips:
+  /get_trip:
       get: 
-        summary: Отдает информацию о поездках пользователя
+        summary: Получение информации о поездках пользователя
         parameters:
-          - name: host_id
-            description: ID пользователя
+          - name: id
+            description: ID поездки
             in: query
             required: true            
             schema:
               type: integer
+        responses:
+          '200':
+            description: Список данных о поездках
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/trips'
+          404:
+            description: Пользователь не найден
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+          500:
+            description: Неожиданная ошибка
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+  /get_all_trips:
+      get: 
+        summary: Получение информации о поездках
         responses:
           '200':
             description: Список данных о поездках

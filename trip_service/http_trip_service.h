@@ -204,7 +204,8 @@ public:
         const HTTPServerRequest &request)
     {
         if (hasSubstrTrip(request.getURI(),"/trip") ||
-        hasSubstrTrip(request.getURI(),"/get_trips")) 
+        hasSubstrTrip(request.getURI(),"/get_trip")||
+        hasSubstrTrip(request.getURI(),"/get_all_trip"))
                     return new TripHandler(_format);
                 
         return 0;

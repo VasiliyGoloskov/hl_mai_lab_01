@@ -121,31 +121,16 @@ public:
             {
                 long host_id = atol(form.get("host_id").c_str());
 
-                std::optional<database::Route> result = database::Route::get_routes(host_id);
-                if (result)
-                {
-                    response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
-                    response.setChunkedTransferEncoding(true);
-                    response.setContentType("application/json");
-                    //std::ostream &ostr = response.send();
-                    //Poco::JSON::Stringifier::stringify(remove_password(result->toJSON()), ostr);
-                    return;
-                }
-                else
-                {
-                    response.setStatus(Poco::Net::HTTPResponse::HTTPStatus::HTTP_NOT_FOUND);
-                    response.setChunkedTransferEncoding(true);
-                    response.setContentType("application/json");
-                    Poco::JSON::Object::Ptr root = new Poco::JSON::Object();
-                    root->set("type", "/errors/not_found");
-                    root->set("title", "Internal exception");
-                    root->set("status", "404");
-                    root->set("detail", "userr not found");
-                    root->set("instance", "/user");
-                    std::ostream &ostr = response.send();
-                    Poco::JSON::Stringifier::stringify(root, ostr);
-                    return;
-                }
+                auto results = database::Route::get_routes(host_id);
+                Poco::JSON::Array arr;
+                for (auto s : results)
+                    arr.add(s.toJSON());
+                response.setStatus(Poco::Net::HTTPResponse::HTTP_OK);
+                response.setChunkedTransferEncoding(true);
+                response.setContentType("application/json");
+                std::ostream &ostr = response.send();
+                Poco::JSON::Stringifier::stringify(arr, ostr);
+               
             }
             if (request.getMethod() == Poco::Net::HTTPRequest::HTTP_POST) 
             {
@@ -156,12 +141,13 @@ public:
                     route.host_id() =  atol(form.get("host_id").c_str()); 
                     std::cout << route.host_id() << "+" << std::endl;     
                           
-                    route.creation_date() = form.get("creation_date");
-                    std::cout << route.creation_date() << "+-" << std::endl;
+                   
                     route.title() = form.get("title");
                     std::cout << route.title() << "+" << std::endl; 
                     route.type() = form.get("type");
                     std::cout << route.type() << "+" << std::endl; 
+                    route.creation_date() = form.get("creation_date");
+                    std::cout << route.creation_date() << "+-" << std::endl;
                     route.start_point() = form.get("start_point");
                     std::cout << route.start_point() << "+" << std::endl; 
                     route.finish_point() = form.get("finish_point");

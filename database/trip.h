@@ -38,6 +38,7 @@ namespace database
 
             static void init();
             static std::optional<Trip> get_trip(long id);
+            static std::vector<Trip> get_all_trips();
             void save_to_mysql();
 
             Poco::JSON::Object::Ptr toJSON() const;

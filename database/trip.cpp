@@ -27,8 +27,8 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Statement create_route(session);
             create_route << "CREATE TABLE IF NOT EXISTS `Trip` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
-                        << "`host_id` VARCHAR(256) NOT NULL,"
-                        << "`route_id` VARCHAR(256) NOT NULL,"
+                        << "`host_id` INT NOT NULL,"
+                        << "`route_id` INT NOT NULL,"
                         << "`name` VARCHAR(256) NOT NULL,"
                         << "`type` VARCHAR(256) NOT NULL,"
                         << "`trip_date` VARCHAR(256) NOT NULL);",
@@ -87,7 +87,7 @@ namespace database
             Poco::Data::Session session = database::Database::get().create_session();
             Poco::Data::Statement select(session);
             Trip t;
-            select << "SELECT * FROM Trip where id=?",
+            select << "SELECT id, host_id, route_id, name, type, trip_date FROM Trip where id=?",
                 into(t._id),
                 into(t._host_id),
                 into(t._route_id),
@@ -100,6 +100,43 @@ namespace database
             select.execute();
             Poco::Data::RecordSet rs(select);
             if (rs.moveFirst()) return t;
+        }
+
+        catch (Poco::Data::MySQL::ConnectionException &e)
+        {
+            std::cout << "connection:" << e.what() << std::endl;
+        }
+        catch (Poco::Data::MySQL::StatementException &e)
+        {
+
+            std::cout << "statement:" << e.what() << std::endl;
+            
+        }
+        return {};
+    }
+     std::vector<Trip> Trip::get_all_trips()
+    {
+ try
+        {
+            Poco::Data::Session session = database::Database::get().create_session();
+            Poco::Data::Statement select(session);
+            Trip t;
+            std::vector<Trip> result;
+            select << "SELECT id, host_id, route_id, name, type, trip_date FROM Trip",
+                into(t._id),
+                into(t._host_id),
+                into(t._route_id),
+                into(t._name),
+                into(t._type),
+                into(t._trip_date),
+                range(0, 1); //  iterate over result set one row at a time
+
+             while (!select.done())
+            {
+                if (select.execute())
+                    result.push_back(t);
+            }
+            return result;
         }
 
         catch (Poco::Data::MySQL::ConnectionException &e)
@@ -128,7 +165,7 @@ namespace database
             insert << "INSERT INTO Trip (host_id,route_id,name,type,trip_date) VALUES(?, ?, ?, ?, ?)",
                 use(_host_id),
                 use(_route_id),
-                use(_name);
+                use(_name),
                 use(_type),
                 use(_trip_date);
 
